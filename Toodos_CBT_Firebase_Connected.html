@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toodos Secondary School | CBT Portal</title>
+<style>
+:root{--navy:#10284b;--blue:#1e5aa8;--gold:#e5b642;--ink:#172337;--muted:#66758a;--bg:#f3f6fb;--line:#dce4ef;--white:#fff;--green:#18865b;--red:#c43d4b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+header{background:linear-gradient(115deg,#10284b,#1c4e87);color:white;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:12px;background:var(--gold);color:var(--navy);display:grid;place-items:center;font-weight:900;font-size:20px}.brand h1{font-size:19px;margin:0}.brand small{opacity:.8}
+main{max-width:1180px;margin:24px auto;padding:0 16px}.toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.rolebar{display:flex;gap:6px;flex-wrap:wrap}.btn,button,select,input,textarea{font:inherit}.btn,button{border:0;border-radius:9px;padding:10px 14px;background:var(--blue);color:#fff;cursor:pointer;font-weight:650}.btn.secondary,button.secondary{background:#e8eef7;color:var(--navy)}button.gold{background:var(--gold);color:#172337}button.danger{background:var(--red)}button:disabled{opacity:.45;cursor:not-allowed}
+.panel{background:white;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 5px 20px #17365b0a;margin-bottom:16px}.hero{display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}.hero h2{margin:0 0 5px;font-size:25px;color:var(--navy)}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.stat{padding:16px;border-radius:12px;background:#f7f9fc;border:1px solid var(--line)}.stat strong{font-size:25px;color:var(--navy);display:block}.stat span{font-size:13px;color:var(--muted)}
+h2,h3{color:var(--navy)}h3{margin:0 0 12px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1;min-width:140px}label{font-weight:650;font-size:13px;display:block;margin:9px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid #cbd6e4;border-radius:8px;background:#fff;color:var(--ink)}textarea{min-height:75px;resize:vertical}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:11px;border-bottom:1px solid var(--line)}th{font-size:12px;color:var(--muted);text-transform:uppercase} .tablewrap{overflow:auto}
+.tag{display:inline-block;border-radius:30px;padding:3px 9px;background:#eaf1fb;color:#244d80;font-size:12px;font-weight:700}.hidden{display:none!important}
+.notice{background:#fff8e7;border:1px solid #f1d99a;border-radius:10px;padding:12px;color:#725515;font-size:13px}
+.examhead{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}.timer{font-size:22px;font-weight:850;color:var(--red);background:#fff0f0;border-radius:9px;padding:7px 12px}.progress{height:8px;background:#e8edf4;border-radius:10px;overflow:hidden;margin:12px 0}.progress div{height:100%;background:var(--green);width:0}
+.qnav{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin:14px 0}.qnav button{padding:7px 0;background:#edf1f6;color:var(--ink)}.qnav button.done{background:#d7f2e5;color:#12603e}.qnav button.current{outline:2px solid var(--blue)}
+.option{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:12px;margin:9px 0;cursor:pointer}.option:has(input:checked){border-color:var(--blue);background:#f0f6ff}.option input{width:auto;margin-top:5px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:22px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){header{padding:14px}.brand h1{font-size:16px}.grid{grid-template-columns:1fr 1fr}main{margin:14px auto}.panel{padding:14px}.qnav{grid-template-columns:repeat(6,1fr)}th,td{padding:8px}}
+</style></head>
+<body>
+<header><div class="brand"><div class="logo">T</div><div><h1>TOODOS SECONDARY SCHOOL</h1><small>Computer-Based Test Examination Portal</small></div></div><div class="toolbar"><span id="currentRole" class="tag">Student Portal</span><button type="button" onclick="openAdminLogin()">Administrator login</button></div></header>
+<main>
+<section id="adminLoginView" class="hidden">
+<div class="panel" style="max-width:520px;margin:20px auto">
+<h2>Administrator sign in</h2>
+<p class="muted">Sign in using the administrator account created in Firebase Authentication.</p>
+<form id="adminLoginForm">
+<label for="adminEmail">Administrator email</label><input id="adminEmail" type="email" autocomplete="username" required placeholder="Enter administrator email">
+<label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Enter password">
+<p id="adminLoginMessage" class="muted" role="status"></p>
+<div class="row"><button type="submit" id="adminLoginButton">Sign in</button><button type="button" class="secondary" onclick="closeAdminLogin()">Back to student portal</button></div>
+</form>
+</div>
+</section>
+<section id="studentView">
+<div class="panel hero"><div><h2>Welcome to the CBT Examination Portal</h2><div class="muted">Sign in with your student details to take an assigned examination.</div></div><span class="tag">JSS 1 – SS 3</span></div>
+<div class="panel" id="studentLogin"><h3>Student Login</h3><div class="row"><div><label>Admission number</label><input id="studentId" placeholder="e.g. TSS/JSS1/001" value="TSS/JSS1/001"></div><div><label>Full name</label><input id="studentName" placeholder="Enter your name" value="Demo Student"></div><div><label>Class</label><select id="studentClass"><option>JSS 1</option><option>JSS 2</option><option>JSS 3</option><option>SS 1</option><option>SS 2</option><option>SS 3</option></select></div></div><p><button onclick="studentSignIn()">Continue to examination</button></p></div>
+<div class="panel hidden" id="examReady"><h3>Available examination</h3><div class="row"><div><b>Digital Technologies – First Term</b><div class="muted">JSS 1 • 30 objective questions • 5 minutes (demo settings)</div></div><button onclick="startExam()">Start examination</button></div><p class="notice">Instructions: Choose one answer for each question. Your answers are saved in this browser during the attempt. The examination submits automatically when the timer reaches zero.</p></div>
+<div class="panel hidden" id="examPanel"><div class="examhead"><div><b id="examStudent">Student</b><div class="muted">Digital Technologies • JSS 1</div></div><div class="timer" id="timer">05:00</div></div><div class="progress"><div id="progressBar"></div></div><div class="row"><span id="qCount" class="muted">Question 1 of 30</span><span class="muted" id="answeredCount">0 answered</span></div><div id="questionArea"></div><div class="qnav" id="qNav"></div><div class="row"><button class="secondary" onclick="moveQuestion(-1)">Previous</button><button onclick="moveQuestion(1)">Next</button><button class="gold" onclick="submitExam(false)">Submit examination</button></div></div>
+<div class="panel hidden" id="resultPanel"><h3>Examination submitted</h3><div id="resultSummary"></div><button onclick="location.reload()">Return to portal</button></div>
+</section>
+<section id="teacherView" class="hidden">
+<div class="panel hero"><div><h2>Teacher's Portal</h2><div class="muted">Prepare examinations, maintain question banks and review student performance.</div></div><span class="tag">Teacher workspace</span></div>
+<div class="grid"><div class="stat"><strong id="qTotal">30</strong><span>Sample questions</span></div><div class="stat"><strong>6</strong><span>Class levels</span></div><div class="stat"><strong>4</strong><span>Answer options</span></div><div class="stat"><strong>5 min</strong><span>Demo duration</span></div></div>
+<div class="panel"><h3>Create an examination</h3><div class="row"><div><label>Examination title</label><input id="newTitle" value="Digital Technologies – First Term"></div><div><label>Class</label><select id="newClass"><option>JSS 1</option><option>JSS 2</option><option>JSS 3</option><option>SS 1</option><option>SS 2</option><option>SS 3</option></select></div><div><label>Duration (minutes)</label><input id="newDuration" type="number" min="1" value="5"></div></div><p><button onclick="createExam()">Save examination settings</button></p><div id="examSettings" class="muted">Current demo: Digital Technologies – First Term | JSS 1 | 5 minutes</div></div>
+<div class="panel"><h3>Add a question to the sample question bank</h3><label>Question</label><textarea id="qText" placeholder="Type the question"></textarea><div class="row"><div><label>Option A</label><input id="optA"></div><div><label>Option B</label><input id="optB"></div></div><div class="row"><div><label>Option C</label><input id="optC"></div><div><label>Option D</label><input id="optD"></div></div><div class="row"><div><label>Correct answer</label><select id="correct"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></div><div><label>Class level</label><select id="qClass"><option>JSS 1</option><option>JSS 2</option><option>JSS 3</option><option>SS 1</option><option>SS 2</option><option>SS 3</option></select></div></div><p><button onclick="addQuestion()">Add question</button></p></div>
+<div class="panel"><h3>Question bank</h3><div class="tablewrap"><table><thead><tr><th>#</th><th>Question</th><th>Correct option</th><th>Class</th></tr></thead><tbody id="questionTable"></tbody></table></div></div>
+</section>
+<section id="adminView" class="hidden">
+<div class="panel hero"><div><h2>Administrator Dashboard</h2><div class="muted">School-wide examination administration and oversight.</div></div><div class="row" style="flex:0 0 auto"><span class="tag">Administration</span><button type="button" class="danger" onclick="adminLogout()">Log out</button></div></div>
+<div class="grid"><div class="stat"><strong>6</strong><span>Class levels</span></div><div class="stat"><strong id="adminQ">30</strong><span>Sample questions</span></div><div class="stat"><strong id="attemptCount">0</strong><span>Recorded demo attempts</span></div><div class="stat"><strong>4</strong><span>Core portals/modules</span></div></div>
+<div class="panel"><h3>School configuration</h3><div class="row"><div><label>School name</label><input value="Toodos Secondary School" readonly></div><div><label>Classes covered</label><input value="JSS 1, JSS 2, JSS 3, SS 1, SS 2, SS 3" readonly></div></div><p class="muted">The production administrator will be able to create student and teacher accounts, assign subjects, schedule examinations, manage results, and configure access permissions.</p></div>
+<div class="panel"><h3>Examination activity</h3><div id="attemptsList" class="muted">No examination attempts recorded in this browser yet.</div></div>
+<div class="panel"><h3>System controls</h3><p>Data backup, account permissions, audit logs, examination scheduling, result publication, and school-wide settings are planned for the production version.</p><div class="notice">Demo notice: this standalone preview stores data only in the current browser. It does not yet provide secure server-side accounts, shared school databases, or centralised backups.</div></div>
+</section>
+</main><footer>© 2026 Toodos Secondary School • CBT Examination Portal • Demonstration prototype</footer>
+<script>
+const questions=[
+["Digital technology involves the use of electronic tools to process and share what?","Data","Water","Soil","Food",0],
+["Which of these is a digital device?","Abacus","Smartphone","Stone","Chalk",1],
+["One importance of digital technology is that it makes communication _____.","Slower","Impossible","Faster","Unnecessary",2],
+["Which device is commonly used to enter text into a computer?","Monitor","Speaker","Printer","Keyboard",3],
+["Which of these is an example of an early calculating tool?","Abacus","Mouse","Scanner","Projector",0],
+["Napier's Bones was used mainly for _____.","Drawing","Mathematical calculations","Printing","Playing music",1],
+["The development of computers is commonly grouped into _____.","Colours","Sizes","Generations","Countries",2],
+["A computer that uses continuous signals is called a/an ____ computer.","Digital","Personal","Portable","Analog",3],
+["Which is an emerging area in information technology?","Cybersecurity","Carpentry","Fishing","Tailoring",0],
+["A person who writes computer programs is a _____.","Pilot","Software developer","Driver","Farmer",1],
+["Computer hardware refers to the _____ parts of a computer.","Invisible","Imaginary","Physical","Online",2],
+["Which of these is an input device?","Monitor","Printer","Speaker","Mouse",3],
+["Which device displays information from a computer?","Monitor","Keyboard","Microphone","Scanner",0],
+["A printer is an example of a/an _____ device.","Input","Output","Storage","Processing",1],
+["Which practice helps maintain computer hardware?","Pouring water on it","Pulling cables roughly","Keeping it clean and dust-free","Eating beside it",2],
+["RAM is an example of _____.","Secondary storage","Output device","Application software","Primary memory",3],
+["Which storage device is commonly portable?","Flash drive","Monitor","Keyboard","Speaker",0],
+["ROM stands for _____.","Random Output Memory","Read Only Memory","Read Open Machine","Run Only Machine",1],
+["Which of these is a secondary storage device?","RAM","CPU","Hard disk","Register",2],
+["The smallest basic unit of digital data is the _____.","Byte","Kilobyte","Megabyte","Bit",3],
+["Eight bits make one _____.","Byte","Gigabyte","Terabyte","Megabyte",0],
+["Which is larger than a megabyte?","Bit","Gigabyte","Byte","Kilobyte",1],
+["Software refers to the _____ that instructs a computer.","Cables","Screen","Programs","Desk",2],
+["Which of these is system software?","Paint","Calculator","Web browser","Operating system",3],
+["Which is an example of application software?","Word processor","Power supply","RAM","Motherboard",0],
+["An operating system helps to manage computer _____.","Furniture","Resources","Classrooms","Windows only",1],
+["Booting is the process of _____.","Printing a file","Deleting a folder","Starting a computer","Cleaning a keyboard",2],
+["Before switching off a computer, a user should first _____.","Remove the monitor","Pull every cable","Press random keys","Shut it down properly",3],
+["Which command is commonly used to store a document for later use?","Save","Delete","Close without saving","Format disk",0],
+["In a word processor, text formatting can include changing the _____.","Electricity","Font size","Battery","Network cable",1]
+];
+let bank=questions.map((q,i)=>({id:i+1,text:q[0],opts:q.slice(1,5),ans:q[5],cls:"JSS 1"}));
+let current=0,answers={},remaining=300,timer=null,student={},attempts=[],exam={title:"Digital Technologies – First Term",cls:"JSS 1",duration:5};
+const $=id=>document.getElementById(id);
+function switchRole(role){["student","teacher","admin"].forEach(r=>$(r+"View").classList.toggle("hidden",r!==role));$("currentRole").textContent=role==="admin"?"Administrator":role[0].toUpperCase()+role.slice(1)+" Portal";if(role==="teacher")renderBank();if(role==="admin")renderAttempts();}
+function studentSignIn(){student={id:$("studentId").value.trim(),name:$("studentName").value.trim(),cls:$("studentClass").value};if(!student.id||!student.name){alert("Enter your admission number and full name.");return;} $("studentLogin").classList.add("hidden");$("examReady").classList.remove("hidden");}
+let activeQuestions=[];
+function startExam(){if(student.cls!=="JSS 1"){alert("This demonstration contains sample questions for JSS 1 only. Teachers can add questions for other class levels.");return;}activeQuestions=bank.filter(q=>q.cls===student.cls).sort(()=>Math.random()-.5).slice(0,30);activeQuestions.forEach(q=>{q.correctText=q.opts[q.ans];q.opts.sort(()=>Math.random()-.5);});if(activeQuestions.length<1){alert("No questions have been added for this class.");return;}current=0;answers={};remaining=exam.duration*60;$("examReady").classList.add("hidden");$("examPanel").classList.remove("hidden");$("examStudent").textContent=student.name+" • "+student.id;renderQuestion();renderNav();updateProgress();timer=setInterval(()=>{remaining--;let m=Math.floor(remaining/60),s=remaining%60;$("timer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");if(remaining<=0)submitExam(true);},1000);}
+function renderQuestion(){let q=activeQuestions[current];$("qCount").textContent=`Question ${current+1} of ${activeQuestions.length}`;$("questionArea").innerHTML=`<h3>${current+1}. ${esc(q.text)}</h3>`+q.opts.map((o,i)=>`<label class="option"><input type="radio" name="answer" ${answers[q.id]===o?"checked":""} onchange="saveAnswer('${q.id}','${escAttr(o)}')"><span><b>${"ABCD"[i]}.</b> ${esc(o)}</span></label>`).join("");renderNav();updateProgress();}
+function saveAnswer(id,value){answers[id]=value;renderNav();updateProgress();}
+function renderNav(){$("qNav").innerHTML=activeQuestions.map((q,i)=>`<button class="${i===current?"current":""} ${answers[q.id]!==undefined?"done":""}" onclick="goQuestion(${i})">${i+1}</button>`).join("");}
+function goQuestion(i){current=i;renderQuestion();}
+function moveQuestion(d){current=Math.max(0,Math.min(activeQuestions.length-1,current+d));renderQuestion();}
+function updateProgress(){let n=Object.keys(answers).length;$("answeredCount").textContent=n+" answered";$("progressBar").style.width=(n/activeQuestions.length*100)+"%";}
+function submitExam(auto){if(!timer&&$("examPanel").classList.contains("hidden"))return;if(!auto&&!confirm("Submit your examination now?"))return;clearInterval(timer);timer=null;let score=activeQuestions.filter(q=>answers[q.id]===q.correctText).length;let percent=Math.round(score/activeQuestions.length*100);attempts.push({name:student.name,id:student.id,cls:student.cls,score,total:activeQuestions.length,percent,date:new Date().toLocaleString()});$("examPanel").classList.add("hidden");$("resultPanel").classList.remove("hidden");$("resultSummary").innerHTML=`<p><b>Student:</b> ${esc(student.name)}</p><p><b>Admission number:</b> ${esc(student.id)}</p><p><b>Score:</b> ${score} / ${activeQuestions.length}</p><p><b>Percentage:</b> ${percent}%</p><p class="tag">${percent>=50?"Pass":"Needs improvement"}</p>`;renderAttempts();}
+function createExam(){exam={title:$("newTitle").value,cls:$("newClass").value,duration:Math.max(1,Number($("newDuration").value)||5)};$("examSettings").textContent=`Current settings: ${exam.title} | ${exam.cls} | ${exam.duration} minutes`;alert("Demo examination settings updated.");}
+function addQuestion(){let text=$("qText").value.trim(),opts=[$("optA").value.trim(),$("optB").value.trim(),$("optC").value.trim(),$("optD").value.trim()];if(!text||opts.some(x=>!x)){alert("Enter the question and all four options.");return;}let ans=Number($("correct").value);bank.push({id:Date.now(),text,opts,ans,correctText:opts[ans],cls:$("qClass").value});$("qText").value="";["optA","optB","optC","optD"].forEach(x=>$(x).value="");renderBank();$("adminQ").textContent=bank.length;$("qTotal").textContent=bank.length;alert("Question added to this browser's demonstration question bank.");}
+function renderBank(){$("questionTable").innerHTML=bank.map((q,i)=>`<tr><td>${i+1}</td><td>${esc(q.text)}</td><td>${"ABCD"[q.ans]}</td><td>${q.cls}</td></tr>`).join("");}
+function renderAttempts(){$("attemptCount").textContent=attempts.length;$("attemptsList").innerHTML=attempts.length?`<div class="tablewrap"><table><tr><th>Student</th><th>Class</th><th>Score</th><th>Percentage</th><th>Date</th></tr>${attempts.map(a=>`<tr><td>${esc(a.name)}</td><td>${a.cls}</td><td>${a.score}/${a.total}</td><td>${a.percent}%</td><td>${a.date}</td></tr>`).join("")}</table></div>`:"No examination attempts recorded in this browser yet.";}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}function escAttr(s){return esc(s).replace(/"/g,"&quot;");}
+bank.forEach(q=>q.correctText=q.opts[q.ans]);renderBank();
+// The student demonstration remains available. Teacher/admin demo role switching is disabled.
+$("studentView").classList.remove("hidden");
+$("teacherView").classList.add("hidden");
+$("adminView").classList.add("hidden");
+$("adminLoginView").classList.add("hidden");
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBgUcgXyYkgHht-opjkYTyTc-OsLWHHqzg",
+  authDomain: "toodos-cbt-school-portal-3205e.firebaseapp.com",
+  projectId: "toodos-cbt-school-portal-3205e",
+  storageBucket: "toodos-cbt-school-portal-3205e.firebasestorage.app",
+  messagingSenderId: "1067847108190",
+  appId: "1:1067847108190:web:48591efe0ac17e91ce96cf"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const byId = id => document.getElementById(id);
+
+function showStudentPortal() {
+  byId("adminLoginView").classList.add("hidden");
+  byId("adminView").classList.add("hidden");
+  byId("studentView").classList.remove("hidden");
+  byId("currentRole").textContent = "Student Portal";
+}
+function showAdminDashboard() {
+  byId("adminLoginView").classList.add("hidden");
+  byId("studentView").classList.add("hidden");
+  byId("teacherView").classList.add("hidden");
+  byId("adminView").classList.remove("hidden");
+  byId("currentRole").textContent = "Administrator";
+  if (typeof renderAttempts === "function") renderAttempts();
+}
+
+window.openAdminLogin = () => {
+  byId("studentView").classList.add("hidden");
+  byId("adminView").classList.add("hidden");
+  byId("adminLoginView").classList.remove("hidden");
+  byId("currentRole").textContent = "Administrator sign in";
+  byId("adminLoginMessage").textContent = "";
+};
+window.closeAdminLogin = () => showStudentPortal();
+window.adminLogout = async () => {
+  try { await signOut(auth); showStudentPortal(); }
+  catch (error) { alert("Could not sign out. Please try again."); }
+};
+
+byId("adminLoginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  const email = byId("adminEmail").value.trim();
+  const password = byId("adminPassword").value;
+  const message = byId("adminLoginMessage");
+  const button = byId("adminLoginButton");
+  message.textContent = "Checking administrator account…";
+  button.disabled = true;
+  try {
+    const credential = await signInWithEmailAndPassword(auth, email, password);
+    const profileRef = doc(db, "users", credential.user.uid);
+    const profileSnap = await getDoc(profileRef);
+    const profile = profileSnap.exists() ? profileSnap.data() : null;
+    if (!profile || profile.role !== "admin" || profile.active !== true) {
+      await signOut(auth);
+      message.textContent = "Access denied. This account is not an active administrator.";
+      return;
+    }
+    byId("adminPassword").value = "";
+    showAdminDashboard();
+  } catch (error) {
+    console.error("Administrator sign-in error:", error);
+    message.textContent = "Sign-in failed. Check your email and password, then try again.";
+  } finally {
+    button.disabled = false;
+  }
+});
+
+onAuthStateChanged(auth, async user => {
+  if (!user) { showStudentPortal(); return; }
+  try {
+    const profileSnap = await getDoc(doc(db, "users", user.uid));
+    const profile = profileSnap.exists() ? profileSnap.data() : null;
+    if (profile && profile.role === "admin" && profile.active === true) {
+      showAdminDashboard();
+    } else {
+      await signOut(auth);
+      showStudentPortal();
+    }
+  } catch (error) {
+    console.error("Administrator profile check failed:", error);
+    await signOut(auth);
+    showStudentPortal();
+  }
+});
+</script>
+</body></html>
